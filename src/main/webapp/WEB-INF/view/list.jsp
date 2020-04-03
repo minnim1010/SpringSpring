@@ -33,4 +33,16 @@
     </tbody>
 </table>
 </body>
+<td>
+    <button onClick="location.href='/signin'">Sign in</button>
+</td>
+<td>
+    <button onClick="location.href='/signup'">Sign up</button>
+</td>
+<td>
+    <button onClick="location.href='/signout'">Sign Out</button>
+</td>
+<td>
+    <button onClick="location.href='/post'">Post</button>
+</td>
 </html>

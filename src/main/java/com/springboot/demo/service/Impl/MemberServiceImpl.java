@@ -1,6 +1,7 @@
 package com.springboot.demo.service.Impl;
 
 import com.springboot.demo.dao.MemberDao;
+import com.springboot.demo.dao.UserDao;
 import com.springboot.demo.model.MemberModel;
 import com.springboot.demo.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,4 +24,5 @@ public class MemberServiceImpl implements MemberService {
     public void insertMember(MemberModel memberModel) {
         Mdao.setMember(memberModel);
     }
+
 }
