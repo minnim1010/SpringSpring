@@ -1,37 +1,48 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0.1 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html"; charset="UTF-9">
-    <title>Forum</title>
+    <title>MinniM 게시판</title>
 </head>
-
 <body>
-<table border="1">
-    <thead>
-        <tr>
-            <th>BNO</th>
-            <th>TITLE</th>
-            <th>AUTHOR</th>
-            <th>DATE</th>
-            <th>CONTENT</th>
-        </tr>
-    </thead>
-    <tbody>
-    <c:forEach items="${memberList}" var="member">
-        <tr>
-            <td>${member.bno}</td>
-            <td>${member.title}</td>
-            <td>${member.author}</td>
-            <td>${member.regdate}</td>
-            <td>${member.content}</td>
-        </tr>
-    </c:forEach>
-    </tbody>
-</table>
+
+<div id="root">
+    <header>
+        <h1>MinniM 게시판</h1>
+    </header>
+    <hr />
+    <nav>처음화면 - 글쓰기 - 로그인</nav>
+    <hr />
+    <section id="container">
+        <h2>글 목록</h2>
+
+        <table>
+            <tr><th>글 제목</th><th>작성자</th><th>작성일자</th></tr>
+
+            <!-- 목록 시작 -->
+            <c:forEach items="${memberList}" var="member">
+                <tr>
+                    <td><a href="/view?bno=${member.bno}">${member.title}</td>
+                    <td>${member.author}</td>
+                    <td><fmt:formatDate value="${member.regdate}" pattern="yyyy-MM-dd" /></td>
+                </tr>
+            </c:forEach>
+            <!-- 목록 끝 -->
+
+        </table>
+
+    </section>
+
+    <hr />
+
+    <footer>
+        <p>만든이 : MinniM</p>
+    </footer>
+
+</div>
+
 </body>
 <td>
     <button onClick="location.href='/signin'">Sign in</button>
