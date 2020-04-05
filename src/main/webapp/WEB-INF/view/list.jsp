@@ -34,7 +34,19 @@
         </table>
 
     </section>
-
+    <div>
+        <c:if test="${prev}">
+            <span>[<a href="/list?num=${StartPageNum - 1}">prev</a>]</span>
+        </c:if>
+        <c:forEach begin="${StartPageNum}" end="${EndPageNum}" var="num">
+    <span>
+     <a href="/list?num=${num}">${num}</a>
+    </span>
+        </c:forEach>
+        <c:if test="${next}">
+            <span>[<a href="/list?num=${EndPageNum + 1}">next</a>]</span>
+        </c:if>
+    </div>
     <hr />
 
     <footer>

@@ -3,12 +3,33 @@
 
 <mapper namespace="com.springboot.demo.dao.MemberDao">
 
-    <select id="getMember" resultType="com.springboot.demo.model.MemberModel">
-        select * from MP_BOARD
-    </select>
-
     <insert id="setMember" parameterType="com.springboot.demo.model.MemberModel">
         INSERT INTO MP_BOARD(TITLE, CONTENT, AUTHOR) VALUES(#{title}, #{content}, #{author})
     </insert>
+
+    <select id="getaMember" parameterType="int" resultType="com.springboot.demo.model.MemberModel">
+        select * from MP_BOARD where BNO = #{bno}
+    </select>
+
+    <update id="editMember" parameterType="com.springboot.demo.model.MemberModel">
+        update MP_BOARD set TITLE=#{title}, CONTENT=#{content}, AUTHOR=#{author}
+        where BNO = #{bno}
+    </update>
+
+    <delete id="deleteMember" parameterType="int">
+        delete from MP_BOARD where BNO = #{bno}
+    </delete>
+
+    <select id="selectMember" resultType="com.springboot.demo.model.MemberModel">
+        select * from MP_BOARD where NAME=#{name}
+    </select>
+
+    <select id="Count" resultType="int">
+        select count(bno) from MP_BOARD
+    </select>
+
+    <select id="ListPage" parameterType="hashmap" resultType="com.springboot.demo.model.MemberModel">
+        select * from MP_BOARD order by BNO desc limit #{displayNum}, #{postNum}
+    </select>
 
 </mapper>
