@@ -21,7 +21,7 @@
     </delete>
 
     <select id="selectMember" resultType="com.springboot.demo.model.MemberModel">
-        select * from MP_BOARD where NAME=#{name}
+        select * from MP_BOARD where AUTHOR=#{author}
     </select>
 
     <select id="Count" resultType="int">

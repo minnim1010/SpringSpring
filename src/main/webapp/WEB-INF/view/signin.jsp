@@ -1,11 +1,49 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
-    <title>아기 상어 뚜루루뚜루</title>
+    <title>게시판</title>
 </head>
 <body>
-<a href='https://ssg-learn1010.tistory.com/' target='_blank'><img src='https://item.kakaocdn.net/do/4e7bcd25b9500a99472cddf520da7c31f43ad912ad8dd55b04db6a64cddaf76d' alt='shark' /></a>
+
+<div id="root">
+    <header>
+        <h1>Sign In</h1>
+    </header>
+    <hr />
+
+    <nav>
+        Sign In
+    </nav>
+    <hr />
+
+    <section id="container">
+        <form role="form" method="post" action="/login">
+            <table>
+                <tbody>
+                <tr>
+                    <label for="name">name</label><textarea id="name" name="name"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="pwd">password</label><textarea id="pwd" name="pwd" ></textarea>
+                    </td>
+                </tr>
+                <tr>
+                <td>
+                    <button type="submit">submit</button>
+                </td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+        <c:if test="${loginsuccess == false}">
+            <p style="color:#f00;">Id or Password is wrong. Please check again!</p>
+        </c:if>
+    </section>
+    <hr />
+</div>
 </body>
 </html>
-

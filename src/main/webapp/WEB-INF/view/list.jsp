@@ -17,7 +17,6 @@
     <hr />
     <section id="container">
         <h2>글 목록</h2>
-
         <table>
             <tr><th>글 제목</th><th>작성자</th><th>작성일자</th></tr>
 
@@ -54,18 +53,26 @@
     </footer>
 
 </div>
+<c:if test="${USER == NULL}">
 
-</body>
-<td>
-    <button onClick="location.href='/signin'">Sign in</button>
-</td>
-<td>
-    <button onClick="location.href='/signup'">Sign up</button>
-</td>
-<td>
-    <button onClick="location.href='/signout'">Sign Out</button>
-</td>
+    <td>
+        <button onClick="location.href='/signin'">Sign in</button>
+    </td>
+    <td>
+        <button onClick="location.href='/signup'">Sign up</button>
+    </td>
+</c:if>
+<c:if test="${USER != NULL}">
+    <td>
+        <button onClick="location.href='/signout'">Sign Out</button>
+    </td>
+    <td>
+        <button onClick="location.href='/deleteaccount'">Delete Account</button>
+    </td>
+</c:if>
 <td>
     <button onClick="location.href='/post'">Post</button>
 </td>
+</body>
+
 </html>

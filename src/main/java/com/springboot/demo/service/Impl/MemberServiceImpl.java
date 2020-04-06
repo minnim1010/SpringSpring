@@ -21,15 +21,14 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<MemberModel> selectMember() {
-        List<MemberModel> member = Mdao.selectMember();
+    public MemberModel getMember(int bno) {
+        MemberModel member = Mdao.getaMember(bno);
         return member;
     }
 
     @Override
-    public MemberModel getMember(int bno) {
-        MemberModel member = Mdao.getaMember(bno);
-        return member;
+    public List<MemberModel> selectMember(String author) {
+        return Mdao.selectMember(author);
     }
 
     @Override

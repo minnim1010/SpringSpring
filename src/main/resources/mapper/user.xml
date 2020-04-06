@@ -7,4 +7,12 @@
         INSERT INTO USERS(NAME, PWD, EMAIL) VALUES(#{name}, #{pwd}, #{email})
     </insert>
 
+    <select id="LogIn" parameterType="hashmap" resultType="com.springboot.demo.model.UserModel">
+        SELECT * from USERS where NAME = #{name} and PWD = #{pwd}
+    </select>
+
+    <delete id="DeleteID" parameterType="string">
+        DELETE from USERS where NAME = #{name};
+    </delete>
+
 </mapper>

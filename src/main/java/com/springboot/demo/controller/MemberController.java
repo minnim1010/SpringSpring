@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.io.UnsupportedEncodingException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -26,20 +27,29 @@ public class MemberController {
     private static final int MAXPageNum = 10;
 
     @RequestMapping("/")
-    public String list(){
+    public String list(HttpSession session, Model model){
+        Object User = session.getAttribute("USER");
+        model.addAttribute("USER", User);
+
         return "home";
     }
 
     @RequestMapping(value = "/view", method=RequestMethod.GET)
-    public String View(@RequestParam("bno") int bno, Model model) throws Exception{
+    public String View(HttpServletRequest request, @RequestParam("bno") int bno, Model model) throws Exception{
 
         MemberModel member = memberService.getMember(bno);
+
         model.addAttribute("member", member);
+        model.addAttribute("BeforePage", request.getHeader("REFERER"));
         return "view";
     }
 
     @RequestMapping("/post")
-    public String postMember(Model model){
+    public String postMember(HttpSession session, Model model){
+
+        Object login = session.getAttribute("USER");
+        model.addAttribute("login", login != null);
+
         return "post";
     }
 
@@ -52,7 +62,7 @@ public class MemberController {
         member.setAuthor(request.getParameter("author"));
 
         memberService.insertMember(member);
-        ModelAndView result = new ModelAndView("redirect:/list");
+        ModelAndView result = new ModelAndView("redirect:/list?num=1");
 
         return result;
     }
@@ -80,7 +90,7 @@ public class MemberController {
     @RequestMapping("/delete")
     public String Delete(@RequestParam("bno") int bno, Model model){
         memberService.deleteMember(bno);
-        return "redirect:/list";
+        return "redirect:/list?num=1";
     }
 
     @RequestMapping(value = "/list", method=RequestMethod.GET)
@@ -97,6 +107,16 @@ public class MemberController {
         model.addAttribute("EndPageNum", EndPageNum);
         model.addAttribute("prev", StartPageNum == 1 ? false : true);
         model.addAttribute("next", EndPageNum == PageNum ? false : true);
+
+        return "list";
+    }
+
+    @RequestMapping(value="postsearch", method=RequestMethod.POST)
+    public String Search(HttpServletRequest request, Model model) throws Exception{
+        List<MemberModel> member = memberService.selectMember(request.getParameter("author"));
+        int count = member.size();
+
+        model.addAttribute("memberList", member);
 
         return "list";
     }
