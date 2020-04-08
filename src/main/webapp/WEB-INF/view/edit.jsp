@@ -4,10 +4,13 @@
 <html>
 <head>
     <title>게시판 수정</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js">
 </head>
 <body>
 
-<div id="root">
+<div class="container">
     <header>
         <h1>게시판</h1>
     </header>
@@ -20,7 +23,7 @@
 
     <section id="container">
         <form role="form" method="post" action="/editposts?bno=${member.bno}">
-            <table>
+            <table class="table table-hover">
                 <tbody>
                 <tr>
                     <td>

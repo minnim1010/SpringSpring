@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+
 <html>
 <head>
     <title>MinniM 게시판</title>
@@ -59,25 +60,24 @@
             <!-- 목록 끝 -->
 
         </table>
-
     </section>
+
     <div class="col-md-offset-3">
         <ul class="pagination">
             <c:if test="${prev}">
-                <span>[<a href="/list?num=${StartPageNum - 1}">prev</a>]</span>
+                <span>[<a
+                        href="/searchpost?num=${StartPageNum - 1}&SearchType=${SearchType}&Keyword=${Keyword}">prev</a>]</span>
             </c:if>
             <c:forEach begin="${StartPageNum}" end="${EndPageNum}" var="num">
-                <span>
-                 <a href="/list?num=${num}">${num}</a>
-                </span>
+    <span>
+     <a href="/searchpost?num=${num}&SearchType=${SearchType}&Keyword=${Keyword}">${num}</a>
+    </span>
             </c:forEach>
             <c:if test="${next}">
-                <span>[<a href="/list?num=${EndPageNum + 1}">next</a>]</span>
+                <span>[<a href="/searchpost?num=${EndPageNum + 1}&SearchType=${SearchType}&Keyword=${Keyword}">next</a>]</span>
             </c:if>
         </ul>
     </div>
-    <hr/>
-
 
     <div class="search row">
         <div class="col-xs-2 col-sm-2">
@@ -88,12 +88,11 @@
                 <option value="SearchTitleContent">제목+본문</option>
             </select>
         </div>
-        <div class="input-group">
-            <input type="text" class="form-control form-control-sm" name="Keyword" id="Keyword">
-            <span class="input-group-btn">
+        <input type="text" class="form-control form-control-sm" name="Keyword" id="Keyword">
+        <span>
             <button class="btn btn-default" name="btnSearch" id="btnSearch">검색</button>
         </span>
-        </div>
+
     </div>
 
     <script>
@@ -108,6 +107,7 @@
     </script>
 
 </div>
+
 </body>
 
 </html>

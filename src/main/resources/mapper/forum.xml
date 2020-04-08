@@ -20,12 +20,33 @@
         delete from MP_BOARD where BNO = #{bno}
     </delete>
 
-    <select id="selectMember" resultType="com.springboot.demo.model.MemberModel">
-        select * from MP_BOARD where AUTHOR=#{author}
+    <select id="SearchMember" parameterType = "com.springboot.demo.model.SearchPostsModel" resultType="com.springboot.demo.model.MemberModel">
+        select BNO, TITLE, CONTENT, AUTHOR, REGDATE from MP_BOARD <include refid="Search"></include> order by BNO desc limit #{RowStart}, #{RowNumber}
     </select>
 
-    <select id="Count" resultType="int">
-        select count(bno) from MP_BOARD
+    <select id="CountSearch" resultType="int">
+        select count(*) from MP_BOARD <include refid="Search"></include>
+    </select>
+
+    <sql id="Search">
+        <if test = "SearchType != null">
+            <if test = "SearchType == 'SearchTitle'">
+                where TITLE like (SELECT CONCAT('%',#{Keyword},'%'))
+            </if>
+            <if test = "SearchType == 'SearchContent'">
+                where CONTENT like (SELECT CONCAT('%',#{Keyword},'%'))
+            </if>
+            <if test = "SearchType == 'SearchAuthor'">
+                where AUTHOR like (SELECT CONCAT('%',#{Keyword},'%'))
+            </if>
+            <if test = "SearchType == 'SearchTitleContent'">
+                where TITLE like (SELECT CONCAT('%',#{Keyword},'%')) or CONTENT like (SELECT CONCAT('%',#{Keyword},'%'))
+            </if>
+        </if>
+    </sql>
+
+    <select id="Count" resultType="int" parameterType = "com.springboot.demo.model.SearchPostsModel">
+        select count(bno) from MP_BOARD <include refid="Search"></include>
     </select>
 
     <select id="ListPage" parameterType="hashmap" resultType="com.springboot.demo.model.MemberModel">

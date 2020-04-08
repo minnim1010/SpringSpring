@@ -3,6 +3,7 @@ package com.springboot.demo.service.Impl;
 import com.springboot.demo.dao.MemberDao;
 import com.springboot.demo.dao.UserDao;
 import com.springboot.demo.model.MemberModel;
+import com.springboot.demo.model.SearchPostsModel;
 import com.springboot.demo.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,8 +28,22 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<MemberModel> selectMember(String author) {
-        return Mdao.selectMember(author);
+    public List<MemberModel> SearchMember(SearchPostsModel spmodel, int Start, int Num) {
+
+        spmodel.setRowStart(Start);
+        spmodel.setRowNumber(Num);
+//        System.out.println("SearchMember!!!!");
+//        System.out.println(spmodel.getKeyword());
+//        System.out.println(spmodel.getSearchType());
+        return Mdao.SearchMember(spmodel);
+    }
+
+    @Override
+    public int CountSearch(SearchPostsModel spmodel) {
+//        System.out.println("CountSearch!!!!");
+//        System.out.println(spmodel.getRowStart());
+//        System.out.println(spmodel.getRowNumber());
+        return Mdao.CountSearch(spmodel);
     }
 
     @Override

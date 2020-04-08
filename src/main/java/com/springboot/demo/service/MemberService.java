@@ -1,14 +1,14 @@
 package com.springboot.demo.service;
 
 import com.springboot.demo.model.MemberModel;
+import com.springboot.demo.model.SearchPostsModel;
 
-import java.lang.reflect.Member;
-import java.util.HashMap;
 import java.util.List;
 
 public interface MemberService {
     void insertMember(MemberModel memberModel);
-    List<MemberModel> selectMember(String author);
+    List<MemberModel> SearchMember(SearchPostsModel spmodel, int Start, int Num);
+    int CountSearch(SearchPostsModel spmodel);
     MemberModel getMember(int bno);
     void editMember(MemberModel memberModel);
     void deleteMember(int dno);

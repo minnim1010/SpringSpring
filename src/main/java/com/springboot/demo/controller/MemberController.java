@@ -1,6 +1,7 @@
 package com.springboot.demo.controller;
 
 import com.springboot.demo.model.MemberModel;
+import com.springboot.demo.model.SearchPostsModel;
 import com.springboot.demo.service.MemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -94,7 +95,7 @@ public class MemberController {
     }
 
     @RequestMapping(value = "/list", method=RequestMethod.GET)
-    public String ListPage(@RequestParam("num") int num, Model model) throws Exception{
+    public String ListPage(@RequestParam(value="num", defaultValue = "1") int num, Model model) throws Exception{
         int count = memberService.count();
 
         int PageNum = (int)Math.ceil((double)count/postNum);
@@ -107,18 +108,29 @@ public class MemberController {
         model.addAttribute("EndPageNum", EndPageNum);
         model.addAttribute("prev", StartPageNum == 1 ? false : true);
         model.addAttribute("next", EndPageNum == PageNum ? false : true);
+        model.addAttribute("spmodel", new SearchPostsModel());
 
         return "list";
     }
 
-    @RequestMapping(value="postsearch", method=RequestMethod.POST)
-    public String Search(HttpServletRequest request, Model model) throws Exception{
-        List<MemberModel> member = memberService.selectMember(request.getParameter("author"));
-        int count = member.size();
+    @RequestMapping("/searchpost")
+    public String Search(@RequestParam(value="num", defaultValue = "1") int num, SearchPostsModel spmodel, Model model) throws Exception{
+
+        int count = memberService.CountSearch(spmodel);
+        int PageNum = (int)Math.ceil((double)count/postNum);
+        int StartPageNum = ((int)((num-1)/MAXPageNum))*MAXPageNum+1;
+        int EndPageNum = PageNum-StartPageNum < MAXPageNum ? PageNum: StartPageNum+MAXPageNum-1;
+        List<MemberModel> member = memberService.SearchMember(spmodel, (num-1)*postNum, postNum);
 
         model.addAttribute("memberList", member);
+        model.addAttribute("StartPageNum", StartPageNum);
+        model.addAttribute("EndPageNum", EndPageNum);
+        model.addAttribute("SearchType", spmodel.getSearchType());
+        model.addAttribute("Keyword", spmodel.getKeyword());
+        model.addAttribute("prev", StartPageNum == 1 ? false : true);
+        model.addAttribute("next", EndPageNum == PageNum ? false : true);
 
-        return "list";
+        return "searchpost";
     }
 
 }
