@@ -9,43 +9,45 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js">
+    <style type="text/css">
+        #wrapper {
+            position: absolute;
+            top: 100px;
+            left: 300px;
+            right: 300px;
+            margin: auto;
+        }
+    </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <h1>MinniM 게시판</h1>
-    </header>
-    <hr/>
-    <nav>처음화면 - 글쓰기 - 로그인</nav>
+<div id = "wrapper">
+    <h2 style="display: inline;">Hello! </h2>
+    <c:if test="${USER != NULL}">
+        <h2 style="display: inline;">${USER.name}</h2>
+    </c:if>
     <c:if test="${USER == NULL}">
-
-        <span>
-            <button onClick="location.href='/signin'">Sign in</button>
-        </span>
-        <span>
-            <button onClick="location.href='/signup'">Sign up</button>
-        </span>
+    <div style="display: inline; float:right;">
+            <button type="button" class="btn btn-primary" onClick="location.href='/signin'">Sign in</button>
+            <button type="button" class="btn btn-primary" onClick="location.href='/signup'">Sign up</button>
+    </div>
     </c:if>
     <c:if test="${USER != NULL}">
-        <span>
-            <button onClick="location.href='/signout'">Sign Out</button>
-        </span>
-        <span>
-            <button onClick="location.href='/deleteaccount'">Delete Account</button>
-        </span>
+        <div style="display: inline; float:right;">
+            <button type="button" class="btn btn-primary" onClick="location.href='/signout'">Sign Out</button>
+            <button type="button" class="btn btn-primary" onClick="location.href='/deleteaccount'">Delete Account</button>
+        </div>
     </c:if>
-    <span>
-        <button onClick="location.href='/post'">Post</button>
-    </span>
+
     <hr/>
+
     <section id="container">
-        <h2>글 목록</h2>
+        <h2>Post List</h2>
         <table class="table table-hover">
             <thead>
-            <th>글 제목</th>
-            <th>작성자</th>
-            <th>작성일자</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Date</th>
             </thead>
 
             <!-- 목록 시작 -->
@@ -59,25 +61,30 @@
             <!-- 목록 끝 -->
 
         </table>
-
     </section>
-    <div class="col-md-offset-3">
-        <ul class="pagination">
+
+    <div style="float:right">
+        <c:if test="${USER != NULL}">
+            <button type="button" class="btn btn-primary" onClick="location.href='/post'">Post</button>
+        </c:if>
+    </div>
+
+    <br/>
+    <nav class="text-center shrink">
+        <ul class="pagination" >
             <c:if test="${prev}">
-                <span>[<a href="/list?num=${StartPageNum - 1}">prev</a>]</span>
+                <li class="page-item"><a class="page-link" href="/list?num=${StartPageNum - 1}">prev</a></li>
             </c:if>
             <c:forEach begin="${StartPageNum}" end="${EndPageNum}" var="num">
-                <span>
-                 <a href="/list?num=${num}">${num}</a>
-                </span>
+                <li class="page-item"><a class="page-link" href="/list?num=${num}">${num}</a></li>
             </c:forEach>
             <c:if test="${next}">
-                <span>[<a href="/list?num=${EndPageNum + 1}">next</a>]</span>
+                <li class="page-item"><a class="page-link" href="/list?num=${EndPageNum + 1}">next</a></li>
             </c:if>
         </ul>
-    </div>
-    <hr/>
+    </nav>
 
+    <hr/>
 
     <div class="search row">
         <div class="col-xs-2 col-sm-2">

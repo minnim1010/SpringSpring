@@ -9,38 +9,43 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js">
     <style type="text/css">
         #wrapper {
-            width: 500px;
+            position: absolute;
+            top: 200px;
+            left: 300px;
+            right: 300px;
             margin: auto;
         }
     </style>
 
 </head>
 <body>
-<div style="padding:100px">
+<div id="wrapper">
 
     <form class="border border-light p-5" role="form" method="post" action="/login">
 
-        <p class="h2 mb-4 text-center">Sign in</p>
+        <p class="h1 text-center">Sign in</p>
 
+
+        <br/><br/>
         <div class="text-center">
             <c:if test="${loginsuccess == false}">
                 <p style="color:#f00;">Id or Password is wrong. Please check again!</p>
             </c:if>
         </div>
         <p>
-        <input type="name" id="name" name="name" class="form-control mb-4" placeholder="ID">
+            <input type="name" id="name" name="name" class="form-control mb-4" placeholder="ID">
         </p>
         <p>
-        <input type="password" id="pwd" name="pwd" class="form-control mb-4" placeholder="Password">
+            <input type="password" id="pwd" name="pwd" class="form-control mb-4" placeholder="Password">
         </p>
 
+        <br/>
         <button class="btn btn-info btn-block my-4" type="submit">Sign in</button>
 
         <div class="text-center">
             <p>Not a member?
                 <a href="/signup">Register</a>
             </p>
-
         </div>
     </form>
 </div>

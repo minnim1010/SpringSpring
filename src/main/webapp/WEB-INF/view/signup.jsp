@@ -1,53 +1,44 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>게시판</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js">
+    <style type="text/css">
+        #wrapper {
+            position: absolute;
+            top: 200px;
+            left: 300px;
+            right: 300px;
+            margin: auto;
+        }
+    </style>
 </head>
 <body>
 
-<div id="root">
-    <header>
-        <h1>Sign Up</h1>
-    </header>
-    <hr />
+<div id="wrapper">
 
-    <nav>
-        Sign up
-    </nav>
-    <hr />
 
-    <section id="container">
-        <form role="form" method="post" action="/addUser">
-            <table>
-                <tbody>
-                <tr>
-                    <label for="name">name</label><textarea id="name" name="name"></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="pwd">password</label><textarea id="pwd" name="pwd" ></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="email">email</label><textarea id="email" name="email" ></textarea>
-                    </td>
-                </tr>
-                <td>
-                    <button type="submit">submit</button>
-                </td>
-                </tr>
-                </tbody>
-            </table>
-        </form>
-    </section>
-    <hr />
+    <form role="form" method="post" action="/addUser">
+        <p class="h1 text-center">Sign Up</p>
+
+        <br/><br/>
+        <p>
+            <input type="name" id="name" name="name" class="form-control mb-4" placeholder="ID">
+        </p>
+        <p>
+            <input type="password" id="pwd" name="pwd" class="form-control mb-4" placeholder="Password">
+        </p>
+        <p>
+            <input id="email" name="email" class="form-control mb-4" placeholder="Email">
+        </p>
+        <br/>
+        <button class="btn btn-info btn-block my-4" type="submit">Sign Up</button>
+    </form>
+
 </div>
 </body>
 </html>

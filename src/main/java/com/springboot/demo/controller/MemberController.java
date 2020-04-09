@@ -27,14 +27,6 @@ public class MemberController {
     private static final int postNum = 10;
     private static final int MAXPageNum = 10;
 
-    @RequestMapping("/")
-    public String list(HttpSession session, Model model){
-        Object User = session.getAttribute("USER");
-        model.addAttribute("USER", User);
-
-        return "home";
-    }
-
     @RequestMapping(value = "/view", method=RequestMethod.GET)
     public String View(HttpServletRequest request, @RequestParam("bno") int bno, Model model) throws Exception{
 
@@ -49,7 +41,7 @@ public class MemberController {
     public String postMember(HttpSession session, Model model){
 
         Object login = session.getAttribute("USER");
-        model.addAttribute("login", login != null);
+        model.addAttribute("login", login);
 
         return "post";
     }
@@ -69,8 +61,10 @@ public class MemberController {
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
-    public String Edit(@RequestParam("bno") int bno, Model model){
+    public String Edit(@RequestParam("bno") int bno, Model model, HttpSession session){
         MemberModel member = memberService.getMember(bno);
+        Object login = session.getAttribute("USER");
+        model.addAttribute("login", login);
         model.addAttribute("member", member);
         return "edit";
     }
@@ -94,15 +88,17 @@ public class MemberController {
         return "redirect:/list?num=1";
     }
 
-    @RequestMapping(value = "/list", method=RequestMethod.GET)
-    public String ListPage(@RequestParam(value="num", defaultValue = "1") int num, Model model) throws Exception{
+    @RequestMapping(value = {"/", "/list"}, method=RequestMethod.GET)
+    public String ListPage(@RequestParam(value="num", defaultValue = "1") int num, Model model,HttpSession session) throws Exception{
         int count = memberService.count();
 
         int PageNum = (int)Math.ceil((double)count/postNum);
         int StartPageNum = ((int)((num-1)/MAXPageNum))*MAXPageNum+1;
         int EndPageNum = PageNum-StartPageNum < MAXPageNum ? PageNum: StartPageNum+MAXPageNum-1;
+        Object User = session.getAttribute("USER");
 
         List<MemberModel> member = memberService.ListPage((num-1)*postNum, postNum);
+        model.addAttribute("USER", User);
         model.addAttribute("memberList", member);
         model.addAttribute("StartPageNum", StartPageNum);
         model.addAttribute("EndPageNum", EndPageNum);

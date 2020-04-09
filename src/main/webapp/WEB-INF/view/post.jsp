@@ -3,58 +3,47 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
-    <title>게시판</title>
+    <title>게시판 수정</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js">
+    <style type="text/css">
+        #wrapper {
+            position: absolute;
+            top: 150px;
+            left: 300px;
+            right: 300px;
+            margin: auto;
+        }
+    </style>
 </head>
 <body>
 
-<div id="root">
-    <header>
-        <h1> 게시판</h1>
-    </header>
-    <hr />
+<div id="wrapper">
+    <c:if test="${login eq null}">
+        <h1><p>Please login first, if you want to post!!</p></h1>
+    </c:if>
+    <c:if test="${login ne null}">
+        <form role="form" method="post" action="/insert">
+            <div>
+                <h1>Title</h1>
+                <textarea type="text" name="title" id="title" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"></textarea>
+            </div>
 
-    <nav>
-        홈 - 글 작성
-    </nav>
-    <hr />
+            <div>
+                <h2>Author</h2>
+                <textarea type="text" name="author" id="author" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">${login.name}</textarea>
+            </div>
 
-    <section id="container">
-        <c:if test="${login == true}">
-            <form role="form" method="post" action="/insert">
-                <table>
-                    <tbody>
-                    <tr>
-                        <td>
-                            <label for="title">제목</label><input type="text" id="title" name="title" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="content">내용</label><textarea id="content" name="content" ></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="author">작성자</label>
-                            <input type="text" id="author" name="author" value="${USER.name}" readonly="readonly"/>
-                        </td>
-                    <tr>
-                        <td>
-                            <button type="submit">작성</button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </form>
-        </c:if>
-        <c:if test="${login == false}">
-            <p> Please log in first, if you want to post!!</p>
-        </c:if>
-    </section>
-    <hr />
+            <div>
+                <h1>Content</h1>
+                <textarea type="text" name="content" id="content" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></textarea>
+            </div>
+
+            <br/>
+            <button class="btn btn-info btn-block my-4" type="submit">edit</button>
+        </form>
+    </c:if>
 </div>
 </body>
 </html>

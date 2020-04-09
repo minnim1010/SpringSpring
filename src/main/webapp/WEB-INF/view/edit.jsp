@@ -7,52 +7,43 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js">
+    <style type="text/css">
+        #wrapper {
+            position: absolute;
+            top: 150px;
+            left: 300px;
+            right: 300px;
+            margin: auto;
+        }
+    </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <h1>게시판</h1>
-    </header>
-    <hr />
-
-    <nav>
-        게시판 수정
-    </nav>
-    <hr />
-
-    <section id="container">
+<div id="wrapper">
+    <c:if test="${login eq null}">
+        <h1><p>Please login first, if you want to edit!!</p></h1>
+    </c:if>
+    <c:if test="${login ne null}">
         <form role="form" method="post" action="/editposts?bno=${member.bno}">
-            <table class="table table-hover">
-                <tbody>
-                <tr>
-                    <td>
-                        <label for="title">제목</label>
-                        <input type="text" id="title" name="title" value="${member.title}"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="author">작성자</label>
-                        <input type="text" id="author" name="author" value="${member.author}"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="content">내용</label>
-                        <textarea id="content" name="content">${member.content}</textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <button type="submit">작성</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            <div>
+                <h1>Title</h1>
+                <textarea type="text" name="title" id="title" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">${member.title}</textarea>
+            </div>
+
+            <div>
+                <h2>Author</h2>
+                <textarea type="text" name="author" id="author" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">${login.name}</textarea>
+            </div>
+
+            <div>
+                <h1>Content</h1>
+                <textarea type="text" name="content" id="content" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">${member.content}</textarea>
+            </div>
+
+            <br/>
+            <button class="btn btn-info btn-block my-4" type="submit">edit</button>
         </form>
-    </section>
-    <hr />
+    </c:if>
 </div>
 </body>
 </html>
